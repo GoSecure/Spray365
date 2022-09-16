@@ -84,7 +84,7 @@ auth_error_codes = {
 }
 
 # Error codes that also indicate a successful login; see https://github.com/AzureAD/microsoft-authentication-library-for-dotnet/wiki/Client-Applications#common-invalid-client-errors
-auth_complete_success_error_codes = [ 7000218, 65001 ]
+auth_complete_success_error_codes = [7000218, 65001]
 
 # Error codes that indicated a partial success (valid creds); see https://docs.microsoft.com/en-us/azure/active-directory/develop/reference-aadsts-error-codes
 auth_partial_success_error_codes = {
@@ -94,6 +94,6 @@ auth_partial_success_error_codes = {
     50057: "Account disabled",
     50158: "External validation failed (is there a conditional access policy?)",
     50076: "Multi-Factor Authentication Required",
-    53003: "Conditional access policy prevented access"
+    53003: "Conditional access policy prevented access",
     700016: "Application was not found in the directory",
 }
