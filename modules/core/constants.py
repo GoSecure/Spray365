@@ -77,7 +77,23 @@ user_agents = {
     "win_edge_win10": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36 Edg/95.0.1020.44",
 }
 
-# Error codes that also indicate a successful login; see https://github.com/AzureAD/microsoft-authentication-library-for-dotnet/wiki/Client-Applications#common-invalid-client-errors
-auth_complete_success_error_codes = [7000218, 700016, 65001]
+# Error codes that indicated a failure; see https://docs.microsoft.com/en-us/azure/active-directory/develop/reference-aadsts-error-codes
+auth_error_codes = {
+    50034: "User not found",
+    50126: "Invalid credentials",
+}
 
-auth_partial_success_error_codes = [50053, 50055, 50057, 50158, 50076, 53003]
+# Error codes that also indicate a successful login; see https://github.com/AzureAD/microsoft-authentication-library-for-dotnet/wiki/Client-Applications#common-invalid-client-errors
+auth_complete_success_error_codes = [ 7000218, 65001 ]
+
+# Error codes that indicated a partial success (valid creds); see https://docs.microsoft.com/en-us/azure/active-directory/develop/reference-aadsts-error-codes
+auth_partial_success_error_codes = {
+    530031: "Conditional Access blocked the access token issuance",
+    50053: "Account locked or sign-in blocked because it came from a malicious IP",
+    50055: "Account password expired",
+    50057: "Account disabled",
+    50158: "External validation failed (is there a conditional access policy?)",
+    50076: "Multi-Factor Authentication Required",
+    53003: "Conditional access policy prevented access"
+    700016: "Application was not found in the directory",
+}

@@ -74,7 +74,7 @@ def process_raw_auth_result(
             raw_result.pop("error")  # remove the error
         elif any(
             error_code in raw_result["error_codes"]
-            for error_code in constants.auth_partial_success_error_codes
+            for error_code in constants.auth_partial_success_error_codes.keys()
         ):
             auth_partial_success = True
         auth_error = get_auth_error(raw_result)
@@ -106,24 +106,12 @@ def get_auth_error(raw_auth_result: dict[str]) -> AuthError:
         else None
     )
 
-    if error_code == 50034:
-        message = "User not found"
-    elif error_code == 50053:
-        message = "Account locked"
-    elif error_code == 50055:
-        message = "Account password expired"
-    elif error_code == 50057:
-        message = "Account disabled"
-    elif error_code == 50158:
-        message = "External validation failed (is there a conditional access policy?)"
-    elif error_code == 50076:
-        message = "Multi-Factor Authentication Required"
-    elif error_code == 50126:
-        message = "Invalid credentials"
-    elif error_code == 53003:
-        message = "Conditional access policy prevented access"
+    if error_code in constants.auth_error_codes.keys():
+        message = constants.auth_error_codes[error_code]
+    elif error_code in constants.auth_partial_success_error_codes.keys():
+        message = constants.auth_partial_success_error_codes[error_code]
     else:
-        message = "An unknown error occurred"
+        message = "An unknown error occurred (code %i)" % error_code
 
     return AuthError(
         timestamp, trace_id, correlation_id, message, error_code, raw_error_message
